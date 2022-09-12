@@ -16,12 +16,12 @@ namespace StackBundle.Tasks
         {
             if (File.Exists("server.jar"))
             {
-                Console.WriteLine("Server exists, checking checksum...");
+                Console.WriteLine("服务端软件存在，校验中...");
                 ServerExist();
             }
             else
             {
-                Console.WriteLine("Server does not exist.");
+                Console.WriteLine("服务端软件不存在");
                 NoServer();
             }
         }
@@ -47,13 +47,12 @@ namespace StackBundle.Tasks
         {
             if (!GetSum("server.jar").Equals(Common.IniData["Server"]["ServerHash"], StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("Server exists, but not the server we want (corrupted)?");
-                Console.WriteLine("Defaulting to invalid server.");
+                Console.WriteLine("服务端软件被修改或已损坏");
                 NoServer();
             }
             else
             {
-                Console.WriteLine("Server exists.");
+                Console.WriteLine("服务端校验成功");
             }
         }
     }

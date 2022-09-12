@@ -19,7 +19,7 @@ namespace StackBundle
             var name = task.GetName();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("> Task :");
+            Console.Write("> 执行任务 :");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(name);
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -43,14 +43,32 @@ namespace StackBundle
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Failed to run task {0}.", task.GetName());
+                    Console.WriteLine("执行任务 {0} 失败。", task.GetName());
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("   {0}", ex.Message);
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Please check if the bundle was extracted correctly.");
+                    Console.WriteLine("请检查 Bundle 是否正确解压。");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine();
-                    Console.WriteLine("Installation Failed in {0}", sw.Elapsed);
+                    Console.WriteLine("安装失败（耗时 {0}）", sw.Elapsed);
+                    Console.ResetColor();
+                    Environment.ExitCode = 1;
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    sw.Stop();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("执行任务 {0} 时发生错误。", task.GetName());
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("   {0}", ex.ToString());
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("请检查 Bundle 是否正确解压，并且您是否已连接到网络。");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine();
+                    Console.WriteLine("安装失败（耗时 {0}）", sw.Elapsed);
                     Console.ResetColor();
                     Environment.ExitCode = 1;
                     return;
@@ -60,7 +78,7 @@ namespace StackBundle
             Console.WriteLine();
             sw.Stop();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Installation Succeeded in {0}", sw.Elapsed);
+            Console.WriteLine("安装成功（耗时 {0}）", sw.Elapsed);
             Console.ResetColor();
         }
     }

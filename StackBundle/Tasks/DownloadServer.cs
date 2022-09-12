@@ -18,7 +18,7 @@ namespace StackBundle.Tasks
             client.DownloadFileAsync(new Uri(Common.IniData["Server"]["ServerUrl"]), "server.jar");
             client.DownloadProgressChanged += (sender, e) =>
             {
-                Console.Write("Downloading server... {0}%\r", e.ProgressPercentage);
+                Console.Write("正在下载服务端... {0}%\r", e.ProgressPercentage);
             };
             client.DownloadFileCompleted += (sender, e) =>
             {
@@ -27,7 +27,7 @@ namespace StackBundle.Tasks
                     throw e.Error;
                 }
 
-                Console.WriteLine("Successfully downloaded the server software");
+                Console.WriteLine("--- 服务端软件下载成功 ----");
                 running = false;
             };
             running = true;
